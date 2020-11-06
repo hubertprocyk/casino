@@ -1,0 +1,153 @@
+<!-- Hubert Procyk 3B3T -->
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Kox Kasyno</title>
+    <style>
+      body {
+        background-color: thistle;
+        font-size: 18px;
+        font-family: "Comic Sans MS";
+        text-align: center;
+      }
+      canvas {
+        background-color: #ddd;
+        border: 3px solid transparent;
+      }
+      h1 {
+        font-size: 4rem;
+        margin: 1.5rem;
+        color: #ffe033;
+      }
+      h2 {
+        color: #ffe033;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Witamy w Kox Kasynie</h1>
+    <p>Aby zakończyć lub wznowić losowanie kliknij w maszynę.</p>
+    <canvas id="canvas" width="270px" height="90px"></canvas>
+    <h2 id="winMessage"></h2>
+    <script>
+      const el = document.getElementById("winMessage");
+      const canvas = document.getElementById("canvas");
+      const ctx = canvas.getContext("2d");
+
+      ctx.font = "16pt Comic Sans MS";
+      ctx.textAlign = "center";
+      ctx.fillStyle = "black";
+      ctx.fillText("Ładowanie maszyny", 135, 50);
+
+      const slot1 = new Image();
+      const slot2 = new Image();
+      const slot3 = new Image();
+      const slot4 = new Image();
+      const slot5 = new Image();
+      const slot6 = new Image();
+      const slot7 = new Image();
+      const slot8 = new Image();
+      const slot9 = new Image();
+      const slot10 = new Image();
+      const slot11 = new Image();
+      const slot12 = new Image();
+
+      slot1.src = "./img/slot1.png";
+      slot2.src = "./img/slot2.png";
+      slot3.src = "./img/slot3.png";
+      slot4.src = "./img/slot4.png";
+      slot5.src = "./img/slot5.png";
+      slot6.src = "./img/slot6.png";
+      slot7.src = "./img/slot7.png";
+      slot8.src = "./img/slot8.png";
+      slot9.src = "./img/slot9.png";
+      slot10.src = "./img/slot10.png";
+      slot11.src = "./img/slot11.png";
+      slot12.src = "./img/slot12.png";
+
+      let value1 = randomizer();
+      let value2 = randomizer();
+      let value3 = randomizer();
+
+      function animacja() {
+        borderColorChanger();
+        ctx.clearRect(0, 0, 270, 90);
+        value1 = randomizer();
+        value2 = randomizer();
+        value3 = randomizer();
+        ctx.drawImage(pickImg(value1), 0, 0);
+        ctx.drawImage(pickImg(value2), 90, 0);
+        ctx.drawImage(pickImg(value3), 180, 0);
+      }
+
+      function randomizer() {
+        return Math.floor(Math.random() * 12) + 1;
+      }
+
+      function pickImg(value) {
+        switch (value) {
+          case 1:
+            return slot1;
+            break;
+          case 2:
+            return slot2;
+            break;
+          case 3:
+            return slot3;
+            break;
+          case 4:
+            return slot4;
+            break;
+          case 5:
+            return slot5;
+            break;
+          case 6:
+            return slot6;
+            break;
+          case 7:
+            return slot7;
+            break;
+          case 8:
+            return slot8;
+            break;
+          case 9:
+            return slot9;
+            break;
+          case 10:
+            return slot10;
+            break;
+          case 11:
+            return slot11;
+            break;
+          case 12:
+            return slot12;
+            break;
+        }
+      }
+      function borderColorChanger() {
+        let val1 = Math.floor(Math.random() * 256);
+        let val2 = Math.floor(Math.random() * 256);
+        let val3 = Math.floor(Math.random() * 256);
+        canvas.style.border = `3px solid rgb(${val1}, ${val2}, ${val3})`;
+      }
+
+      let rolling;
+      window.addEventListener("load", (event) => {
+        rolling = setInterval(animacja, 100);
+      });
+      canvas.addEventListener("click", () => {
+        if (rolling != 0) {
+          clearInterval(rolling);
+          rolling = 0;
+          if (value1 == value2 && value2 == value3)
+            el.innerHTML = "GRATULACJE, WYGRAŁEŚ!";
+        } else {
+          rolling = setInterval(animacja, 100);
+          el.innerHTML = "";
+        }
+      });
+    </script>
+  </body>
+</html>
